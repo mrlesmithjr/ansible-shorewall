@@ -6,17 +6,17 @@ shorewall_interfaces:
     zone: 'net'
     options:
       - 'dhcp'
-      - 'tcpflags'
       - 'logmartians'
       - 'nosmurfs'
       - 'sourceroute=0'
+      - 'tcpflags'
   - name: 'eth1'
     zone: 'loc'
     options:
-      - 'tcpflags'
-      - 'nosmurfs'
-      - 'routefilter'
       - 'logmartians'
+      - 'nosmurfs'
+      - 'routefilter=2'
+      - 'tcpflags'
 shorewall_masquerade_info:
   enabled: true
   interface: 'eth0'
@@ -49,18 +49,18 @@ shorewall_policies:
 shorewall_rules:
   - section: 'NEW'
     rules:
-      - source: '$FW'
-        dest: 'net'
-        action: 'ACCEPT'
-        proto: 'tcp'
-        dest_ports:
-          - '53'
-      - source: '$FW'
-        dest: 'net'
-        action: 'ACCEPT'
-        proto: 'udp'
-        dest_ports:
-          - '53'
+#      - source: '$FW'
+#        dest: 'net'
+#        action: 'ACCEPT'
+#        proto: 'tcp'
+#        dest_ports:
+#          - '53'
+#      - source: '$FW'
+#        dest: 'net'
+#        action: 'ACCEPT'
+#        proto: 'udp'
+#        dest_ports:
+#          - '53'
       - source: 'loc'
         dest: '$FW'
         action: 'ACCEPT'
