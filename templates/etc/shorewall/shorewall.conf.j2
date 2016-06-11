@@ -25,7 +25,7 @@ BLACKLIST_LOG_LEVEL=
 
 INVALID_LOG_LEVEL=
 
-LOG_MARTIANS=Yes
+LOG_MARTIANS={{ shorewall_config_options.log_martians }}
 
 LOG_VERBOSITY=2
 
@@ -164,7 +164,7 @@ IMPLICIT_CONTINUE=No
 
 IPSET_WARNINGS=Yes
 
-IP_FORWARDING=Keep
+IP_FORWARDING={{ shorewall_config_options.ip_forwarding }}
 
 KEEP_RT_TABLES=No
 

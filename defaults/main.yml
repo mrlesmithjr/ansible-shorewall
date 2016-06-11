@@ -1,6 +1,9 @@
 ---
 # defaults file for ansible-shorewall
 config_shorewall: true
+shorewall_config_options:
+  ip_forwarding: 'On' # [On|Off|Keep]
+  log_martians: 'Yes' # [Yes|No|Keep]
 shorewall_interfaces:
   - name: 'eth0'
     zone: 'net'
