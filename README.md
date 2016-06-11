@@ -31,6 +31,7 @@ shorewall_interfaces:
       - 'nosmurfs'
       - 'routefilter=2'
       - 'tcpflags'
+shorewall_log_file: '/var/log/syslog'  #defines where syslog messages are...default is /var/log/messages
 shorewall_masquerade_info:
   enabled: true
   interface: 'eth0'
