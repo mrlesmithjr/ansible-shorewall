@@ -9,6 +9,16 @@
   notify:
     - restart shorewall
 
+- name: config_shorewall | Configuring Shorewall
+  template:
+    src: "etc/shorewall/shorewall.conf.j2"
+    dest: "/etc/shorewall/shorewall.conf"
+    owner: "root"
+    group: "root"
+    mode: 0640
+  notify:
+    - restart shorewall
+
 - name: config_shorewall | configuring interfaces
   template:
     src: "etc/shorewall/interfaces.j2"
