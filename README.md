@@ -15,6 +15,18 @@ Role Variables
 ---
 # defaults file for ansible-shorewall
 config_shorewall: true
+shorewall_config_options:  # http://shorewall.net/manpages/shorewall.conf.html
+  accounting: 'Yes'  # [Yes|No]
+  ip_forwarding: 'On' # [On|Off|Keep]
+  logformat: 'Shorewall:%s:%s:'  # ["formattemplate"]
+  logfile: '/var/log/syslog'  # [pathname] - Default is /var/log/messages
+  logtagonly: 'No'  # [Yes|No]
+  log_martians: 'Yes' # [Yes|No|Keep]
+  log_verbosity: '2'  # [-1=disabled|0=Silent|1=Major|2=All]
+  multicast: 'No'  # [Yes|No]
+  startup_enabled: 'Yes'  # [Yes|No]
+  startup_log: '/var/log/shorewall-init.log'  # [pathname]
+  verbosity: '2'  # [0=Silent|1=Major|2=All]
 shorewall_interfaces:
   - name: 'eth0'
     zone: 'net'
@@ -31,7 +43,6 @@ shorewall_interfaces:
       - 'nosmurfs'
       - 'routefilter=2'
       - 'tcpflags'
-shorewall_log_file: '/var/log/syslog'  #defines where syslog messages are...default is /var/log/messages
 shorewall_masquerade_info:
   enabled: true
   interface: 'eth0'
