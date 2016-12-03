@@ -11,13 +11,14 @@
 
 - name: shorewall_config | Configuring Shorewall
   template:
-    src: "etc/shorewall/shorewall.conf.j2"
+    src: "etc/shorewall/shorewallv{{shorewall_version}}.conf.j2"
     dest: "/etc/shorewall/shorewall.conf"
     owner: "root"
     group: "root"
     mode: 0640
   notify:
     - 'restart shorewall'
+  when: shorewall_main_configuration
 
 - name: shorewall_config | Configuring Shorewall interfaces
   template:
