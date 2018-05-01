@@ -93,6 +93,7 @@ shorewall_rules:
           - '80'
           - '443'
 shorewall_startup: true
+shorewall_immediate_restart: false
 shorewall_version: 4
 shorewall_zones:
   - name: 'fw'
