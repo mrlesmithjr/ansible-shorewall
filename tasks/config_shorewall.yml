@@ -69,3 +69,6 @@
     mode: 0640
   notify:
     - 'restart shorewall'
+
+- meta: flush_handlers
+  when: shorewall_immediate_restart
