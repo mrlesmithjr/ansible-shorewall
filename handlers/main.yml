@@ -4,6 +4,9 @@
 - name: restart shorewall
   shell: shorewall check
   notify: restart shorewall after check
+  tags:
+    - skip_ansible_lint
+
 - name: restart shorewall after check
   service:
     name: "shorewall"
