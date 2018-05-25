@@ -44,6 +44,22 @@ shorewall_masquerade_info:
     - 169.254.0.0/16
     - 172.16.0.0/16
     - 192.168.0.0/16
+#
+# it's possible to create multiples masquerade rules this way
+#
+#shorewall_masquerade_info:
+#  enabled:                    true
+#  rules:
+#    - interface:                  eth0:0
+#      source:
+#        - 192.168.122.0/24
+#      address:                    10.123.123.250
+#    - interface:                  eth0
+#      sources:
+#        - 10.0.0.0/8
+#        - 169.254.0.0/16
+#        - 172.16.0.0/16
+#        - 192.168.0.0/16
 
 shorewall_policies:
   - source:                   $FW
