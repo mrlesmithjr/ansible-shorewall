@@ -7,6 +7,7 @@ shorewall_config_options:     # http://shorewall.net/manpages/shorewall.conf.htm
   ip_forwarding:              'On'  # [On|Off|Keep]
   logformat:                  'Shorewall:%s:%s:'  # ["formattemplate"]
   logfile:                    /var/log/syslog  # [pathname] - Default is /var/log/messages
+  loglevel:                   'info' # One of the syslog levels or NFLOG/ULOG settings, see Shorewall manual about logging
   logtagonly:                 'No'  # [Yes|No]
   log_martians:               'Yes'  # [Yes|No|Keep]
   log_verbosity:              2  # [-1=disabled|0=Silent|1=Major|2=All]
