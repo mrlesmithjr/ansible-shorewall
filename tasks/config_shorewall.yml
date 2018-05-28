@@ -21,7 +21,18 @@
   notify:
     - restart shorewall
   when:     shorewall_main_configuration
-
+  
+- name: shorewall_config | Configuring Shorewall extra parameters and variables
+  template:
+    src:    etc/shorewall/params.j2
+    dest:   /etc/shorewall/params
+    owner:  root
+    group:  root
+    mode:   0640
+  become: true
+  notify:
+    - restart shorewall
+    
 - name:     shorewall_config | Configuring Shorewall interfaces
   template:
     src:    etc/shorewall/interfaces.j2
