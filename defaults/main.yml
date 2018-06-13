@@ -7,6 +7,7 @@ shorewall_config_options:     # http://shorewall.net/manpages/shorewall.conf.htm
   ip_forwarding:              'On'  # [On|Off|Keep]
   logformat:                  'Shorewall:%s:%s:'  # ["formattemplate"]
   logfile:                    /var/log/syslog  # [pathname] - Default is /var/log/messages
+  loglevel:                   'info' # One of the syslog levels or NFLOG/ULOG settings, see Shorewall manual about logging
   logtagonly:                 'No'  # [Yes|No]
   log_martians:               'Yes'  # [Yes|No|Keep]
   log_verbosity:              2  # [-1=disabled|0=Silent|1=Major|2=All]
@@ -16,6 +17,13 @@ shorewall_config_options:     # http://shorewall.net/manpages/shorewall.conf.htm
   verbosity:                  2  # [0=Silent|1=Major|2=All]
   docker:                     'Yes'  # only valid for shorewall5, enables docker support
   add_snat_aliases:           'No'
+
+#
+# You can specify extra parameters and variables this way
+#
+#shorewall_params:
+ # LOG: NFLOG
+ # MyIPAddress: 192.168.123.34
 
 shorewall_interfaces:
   - name:                     eth0
@@ -44,6 +52,22 @@ shorewall_masquerade_info:
     - 169.254.0.0/16
     - 172.16.0.0/16
     - 192.168.0.0/16
+#
+# it's possible to create multiples masquerade rules this way
+#
+#shorewall_masquerade_info:
+#  enabled:                    true
+#  rules:
+#    - interface:                  eth0:0
+#      source:
+#        - 192.168.122.0/24
+#      address:                    10.123.123.250
+#    - interface:                  eth0
+#      sources:
+#        - 10.0.0.0/8
+#        - 169.254.0.0/16
+#        - 172.16.0.0/16
+#        - 192.168.0.0/16
 
 shorewall_policies:
   - source:                   $FW
