@@ -20,7 +20,7 @@
   become: true
   notify:
     - restart shorewall
-  when: shorewall_main_configuration
+  when: shorewall_main_configuration|bool
 
 - name: shorewall_config | Configuring Shorewall extra parameters and variables
   template:
@@ -87,7 +87,27 @@
   become: true
   notify:
     - restart shorewall
+  when: shorewall_version|int < 5
 
-- meta: flush_handlers
+- name: shorewall_config | Configuring Shorewall masquerading
+  template:
+    src: etc/shorewall/snat.j2
+    dest: /etc/shorewall/snat
+    owner: root
+    group: root
+    mode: 0640
   become: true
-  when: shorewall_immediate_restart
+  notify:
+    - restart shorewall
+  when: shorewall_version|int >= 5
+
+- name: shorewall_config | Ensuring Shorewall Service Is Enabled
+  service:
+    name: shorewall
+    enabled: true
+  become: true
+
+- name: shorewall_config | Flush Handlers Immediately
+  meta: flush_handlers
+  become: true
+  when: shorewall_immediate_restart|bool

@@ -25,8 +25,14 @@ shorewall_config_options: # http://shorewall.net/manpages/shorewall.conf.html
 # LOG: NFLOG
 # MyIPAddress: 192.168.123.34
 
+# Defines internet facing interface
+shorewall_external_int: eth0
+
+# Defines local interface
+shorewall_internal_int: eth1
+
 shorewall_interfaces:
-  - name: eth0
+  - name: "{{ shorewall_external_int }}"
     zone: net
     options:
       - dhcp
@@ -34,7 +40,7 @@ shorewall_interfaces:
       - nosmurfs
       - sourceroute=0
       - tcpflags
-  - name: eth1
+  - name: "{{ shorewall_internal_int }}"
     zone: loc
     options:
       - logmartians
@@ -46,7 +52,7 @@ shorewall_main_configuration: true
 
 shorewall_masquerade_info:
   enabled: true
-  interface: eth0
+  interface: "{{ shorewall_external_int }}"
   sources:
     - 10.0.0.0/8
     - 169.254.0.0/16
@@ -55,23 +61,33 @@ shorewall_masquerade_info:
 #
 # it's possible to create multiples masquerade rules this way
 #
-#shorewall_masquerade_info:
-#  enabled:                    true
-#  rules:
-#    - interface:                  eth0:0
-#      source:
-#        - 192.168.122.0/24
-#      address:                    10.123.123.250
-#    - interface:                  eth0
-#      sources:
-#        - 10.0.0.0/8
-#        - 169.254.0.0/16
-#        - 172.16.0.0/16
-#        - 192.168.0.0/16
+# shorewall_masquerade_info:
+#   enabled: true
+#   rules:
+#     - interface: "{{ shorewall_external_int }}":0
+#       source:
+#         - 192.168.122.0/24
+#       address: 10.123.123.250
+#     - interface: "{{ shorewall_external_int }}"
+#       sources:
+#         - 10.0.0.0/8
+#         - 169.254.0.0/16
+#         - 172.16.0.0/16
+#         - 192.168.0.0/16
 
 shorewall_policies:
   - source: $FW
+    dest: loc
+    policy: ACCEPT
+    log_level:
+    limit_burst:
+  - source: $FW
     dest: net
+    policy: ACCEPT
+    log_level:
+    limit_burst:
+  - source: loc
+    dest: $FW
     policy: ACCEPT
     log_level:
     limit_burst:
@@ -94,16 +110,16 @@ shorewall_policies:
 shorewall_rules:
   - section: NEW
     rules:
-      # - source:             $FW
-      #   dest:               net
-      #   action:             ACCEPT
-      #   proto:              tcp
+      # - source: $FW
+      #   dest: net
+      #   action: ACCEPT
+      #   proto: tcp
       #   dest_ports:
       #     - 53
-      # - source:             $FW
-      #   dest:               net
-      #   action:             ACCEPT
-      #   proto:              udp
+      # - source: $FW
+      #   dest: net
+      #   action: ACCEPT
+      #   proto: udp
       #   dest_ports:
       #     - 53
       - source: loc
@@ -114,6 +130,12 @@ shorewall_rules:
           - 22
           - 80
           - 443
+      - source: net
+        dest: $FW
+        action: ACCEPT
+        proto: tcp
+        dest_ports:
+          - 22
       - source: net
         dest: loc:192.168.202.200
         action: DNAT
@@ -126,7 +148,7 @@ shorewall_startup: true
 
 shorewall_immediate_restart: false
 
-shorewall_version: 4
+# shorewall_version: 4
 
 shorewall_zones:
   - name: fw
