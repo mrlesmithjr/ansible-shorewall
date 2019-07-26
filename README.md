@@ -1,5 +1,4 @@
-Role Name
-=========
+# ansible-shorewall
 
 Installs and configures Shorewall firewall (http://shorewall.net)
 
@@ -7,41 +6,37 @@ Installs and configures Shorewall firewall (http://shorewall.net)
 
 [![Build Status](https://travis-ci.org/mrlesmithjr/ansible-shorewall.svg?branch=master)](https://travis-ci.org/mrlesmithjr/ansible-shorewall)
 
-Requirements
-------------
+## Requirements
 
 None
 
-Role Variables
---------------
+## Role Variables
 
 [defaults/main.yml](defaults/main.yml)
 
-Dependencies
-------------
+## Dependencies
 
 None
 
-Example Playbook
-----------------
+## Example Playbook
 
-````
+```yaml
 - hosts: all
   become: true
   vars:
   roles:
     - role: ansible-shorewall
   tasks:
-````
-License
--------
+```
 
-BSD
+## License
 
-Author Information
-------------------
+MIT
+
+## Author Information
 
 Larry Smith Jr.
-- @mrlesmithjr
-- http://everythingshouldbevirtual.com
-- mrlesmithjr [at] gmail.com
+
+- [@mrlesmithjr](https://twitter.com/mrlesmithjr)
+- [EverythingShouldBeVirtual](http://everythingshouldbevirtual.com)
+- [mrlesmithjr@gmail.com](mailto:mrlesmithjr@gmail.com)
