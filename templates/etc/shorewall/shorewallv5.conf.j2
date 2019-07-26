@@ -108,11 +108,20 @@ TC=
 #		D E F A U L T   A C T I O N S / M A C R O S
 ###############################################################################
 
+{% if shorewall_default_actions_macros == 'legacy' %}
 ACCEPT_DEFAULT=none
 DROP_DEFAULT=Drop
 NFQUEUE_DEFAULT=none
 QUEUE_DEFAULT=none
 REJECT_DEFAULT=Reject
+{% else %}
+ACCEPT_DEFAULT="none"
+BLACKLIST_DEFAULT="dropBcasts,dropNotSyn,dropInvalid"
+DROP_DEFAULT="Broadcast(DROP),Multicast(DROP)"
+NFQUEUE_DEFAULT="none"
+QUEUE_DEFAULT="none"
+REJECT_DEFAULT="Broadcast(DROP),Multicast(DROP)"
+{% endif %}
 
 ###############################################################################
 #			 R S H / R C P	C O M M A N D S
