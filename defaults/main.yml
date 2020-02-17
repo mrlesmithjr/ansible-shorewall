@@ -130,6 +130,7 @@ shorewall_rules:
           - 22
           - 80
           - 443
+        comments: "this rule is for ssh, http and https traffic"
       - source: net
         dest: $FW
         action: ACCEPT
