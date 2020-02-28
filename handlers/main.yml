@@ -22,7 +22,6 @@
 # iptables.
 
 - name: restore docker isolation chains
-- name: restore docker isolation chains
   iptables:
     chain: "{{ item }}"
   notify: populate docker isolation chains
