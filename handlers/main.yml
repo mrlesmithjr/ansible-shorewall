@@ -22,6 +22,15 @@
 # iptables.
 
 - name: restore docker isolation chains
+- name: restore docker isolation chains
+  iptables:
+    chain: "{{ item }}"
+  notify: populate docker isolation chains
+  with_items:
+    - DOCKER-ISOLATION-STAGE-1
+    - DOCKER-ISOLATION-STAGE-2
+
+- name: populate docker isolation chains
   iptables:
     chain: "{{ item.chain }}"
     in_interface: "{{ item.in | default('*') }}"

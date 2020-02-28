@@ -29,5 +29,8 @@
     (ansible_distribution == 'CentOS' and ansible_distribution_version >= '7.0')
 
 - name: get docker network id
-  command: "docker network ls | grep {{ env }}_default | awk '{ print $1 }'"
-    register: docker_network_id
+  shell: "docker network ls | grep {{ env }}_default | awk '{ print $1 }'"
+  register: docker_network_id
+  changed_when: false
+  failed_when: false
+
