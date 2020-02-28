@@ -30,7 +30,7 @@
 
 - name: get docker network id
   shell: "docker network ls | grep {{ env }}_default | awk '{ print $1 }'"
-  register: docker_network_id
+  register: docker_netw
   changed_when: false
   failed_when: false
 
