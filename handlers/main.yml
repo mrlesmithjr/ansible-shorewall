@@ -13,36 +13,11 @@
     name: shorewall
     state: restarted
   become: true
-  notify: restore docker isolation chains
+  notify: docker restart required
+#  notify: restore docker isolation chains
 
-
-# WORKAROUND: When (re)starting shorewall, the (emtpy) chains DOCKER-ISOLATION-STAGE-1 and DOCKER-ISOLATION-STAGE-2 are
-# not preserved. As a result docker networks cannot be created anymore (and in some cases existing containers loose
-# connection with the outside world... To prevent this, a handler has been added to (re)create these chains directly in
-# iptables.
-
-- name: restore docker isolation chains
-  shell: iptables -N {{ item }}
-  become: true
-  notify: populate docker isolation chains
-  with_items:
-    - DOCKER-ISOLATION-STAGE-1
-    - DOCKER-ISOLATION-STAGE-2
-
-- name: populate docker isolation chains
-  iptables:
-    chain: "{{ item.chain }}"
-    in_interface: "{{ item.in | default('*') }}"
-    out_interface: "{{ item.out | default('*') }}"
-    jump: "{{ item.trgt }}"
-    state: present
-  become: true
-  when: docker_netw is defined
-  with_items:
-  - { chain: DOCKER-ISOLATION-STAGE-1,  trgt: DOCKER-ISOLATION-STAGE-2, in: "br-{{ docker_netw.stdout }}", out: "!br-{{ docker_netw.stdout }}" }
-  - { chain: DOCKER-ISOLATION-STAGE-1,  trgt: DOCKER-ISOLATION-STAGE-2, in: "docker0",                     out: "!docker0" }
-  - { chain: DOCKER-ISOLATION-STAGE-1,  trgt: RETURN }
-  - { chain: DOCKER-ISOLATION-STAGE-2,  trgt: DROP,                     in: "*",                           out: "br-{{ docker_netw.stdout }}" }
-  - { chain: DOCKER-ISOLATION-STAGE-2,  trgt: DROP,                     in: "*",                           out: "docker0" }
-  - { chain: DOCKER-ISOLATION-STAGE-2,  trgt: RETURN }
-# maybe this handler could be restricted to only hosts where docker is installed
+# WORKAROUND: When (re)starting shorewall, the DOCKER related chains are corrupted. Set this flag here, and check in
+#             the dh.docker role to actually restart the daemon
+- name: restart docker daemon required
+  set_fact:
+    restart_docker_deamon_required: true
