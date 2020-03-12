@@ -13,7 +13,7 @@
     name: shorewall
     state: restarted
   become: true
-  notify: docker restart required
+  notify: restart docker daemon required
 #  notify: restore docker isolation chains
 
 # WORKAROUND: When (re)starting shorewall, the DOCKER related chains are corrupted. Set this flag here, and check in
