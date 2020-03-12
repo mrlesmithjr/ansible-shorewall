@@ -1,0 +1,6 @@
+---
+- name: RedHat | Installing Shorewall
+  yum:
+    name: shorewall
+    state: present
+  become: true

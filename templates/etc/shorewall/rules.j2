@@ -3,7 +3,8 @@
 ?SECTION {{ item.section }}
 {%   if item.rules is defined %}
 {%     for rule in item.rules %}
-{{ rule.action }}   {{ rule.source }}   {{ rule.dest }}   {{ rule.proto }}   {{ rule.dest_ports|join (',') }}
+{{ rule.action }}   {{ rule.source }}   {{ rule.dest }}   {{ rule.proto }}   {{ rule.dest_ports|join (',') }}    {% if rule.comments is defined %}# {{ rule.comments }} {% endif %}
+
 {%     endfor %}
 {% endif %}
 {% endfor %}
