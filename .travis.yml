@@ -6,7 +6,8 @@ services:
 before_install:
   - sudo apt-get -qq update
 install:
-  - pip3 install -r requirements.txt
+  - pip3 install --upgrade pip pip-tools
+  - pip-sync requirements.txt requirements-dev.txt
   - ansible --version
   - molecule --version
 script:

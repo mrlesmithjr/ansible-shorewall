@@ -1,3 +1,9 @@
+commit f40ea9d8e5899e5ee17ee1955b6ca45f625da42b
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Tue May 26 09:12:49 2020 -0400
+
+    Updated CI tests to only test Debian distros
+
 commit 1c325ff456c9020d68a8e63bb5a5e14054404d13
 Author: Larry Smith Jr <mrlesmithjr@gmail.com>
 Date:   Tue May 26 09:12:41 2020 -0400

@@ -20,7 +20,8 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt install docker
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip pip-tools
+          pip-sync requirements.txt requirements-dev.txt
           pip3 install -r requirements.txt
           ansible --version
           molecule --version
