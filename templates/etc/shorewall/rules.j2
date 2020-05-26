@@ -1,9 +1,13 @@
 {{ ansible_managed | comment }}
+#ACTION     SOURCE          DEST        PROTO       DPORT        SPORT     ORIGDEST   RATE      USER      MARK    CONNLIMIT     TIME     HEADERS    SWITCH
 {% for item in shorewall_rules %}
 ?SECTION {{ item.section }}
 {%   if item.rules is defined %}
 {%     for rule in item.rules %}
-{{ rule.action }}   {{ rule.source }}   {{ rule.dest }}   {{ rule.proto }}   {{ rule.dest_ports|join (',') }}
+{% if (rule.comment is defined) and (rule.comment|length) %}
+#{{ rule.comment }}
+{% endif %}
+{{ rule.action }}   {{ rule.source }}   {{ rule.dest }}   {{ rule.proto|default ("-") }}   {{ rule.dest_ports|default ("-")|join (',') }}   {{ rule.source_ports|default ("-")|join (',') }}   {{ rule.origdest|default ("-") }}   {{ rule.rate|default ("-") }}   {{ rule.user|default ("-") }}   {{ rule.mark|default ("-") }}   {{ rule.connlimit|default ("-") }}   {{ rule.time|default ("-") }}   {{ rule.headers|default ("-") }}   {{ rule.switch|default ("-") }}
 {%     endfor %}
 {% endif %}
 {% endfor %}
