@@ -1,3 +1,17 @@
+commit 1c325ff456c9020d68a8e63bb5a5e14054404d13
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Tue May 26 09:12:41 2020 -0400
+
+    Added Ubuntu 20.04 as supported
+
+commit e3c9a10e22b5752f9f30a8d00b991cea1c1e51ea
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Tue May 26 09:03:56 2020 -0400
+
+    Added new structure based on template
+    
+    These changes bring this role into alignment with Cookiecutter template.
+
 commit 21f37f03f7c033f9f01ac47a393abaec5cc16148
 Author: Larry Smith Jr <mrlesmithjr@gmail.com>
 Date:   Tue May 26 09:03:09 2020 -0400
