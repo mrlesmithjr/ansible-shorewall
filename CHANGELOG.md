@@ -1,3 +1,9 @@
+commit 846ac2db01501a8938669da43a6c64cca0d7d780
+Author: Larry Smith Jr <mrlesmithjr@gmail.com>
+Date:   Tue May 26 09:20:35 2020 -0400
+
+    Fixed Python requirements
+
 commit f40ea9d8e5899e5ee17ee1955b6ca45f625da42b
 Author: Larry Smith Jr <mrlesmithjr@gmail.com>
 Date:   Tue May 26 09:12:49 2020 -0400
