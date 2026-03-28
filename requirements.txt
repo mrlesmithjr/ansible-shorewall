@@ -110,7 +110,7 @@ ptyprocess==0.6.0
     # via pexpect
 pycparser==2.20
     # via cffi
-pynacl==1.4.0
+pynacl==1.6.2
     # via paramiko
 python-dateutil==2.8.1
     # via arrow
@@ -153,7 +153,6 @@ six==1.15.0
     #   livereload
     #   lunr
     #   pip-tools
-    #   pynacl
     #   python-dateutil
     #   websocket-client
 tabulate==0.8.7
