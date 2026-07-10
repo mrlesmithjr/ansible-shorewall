@@ -6,6 +6,8 @@ galaxy_info:
   license: MIT
 
   min_ansible_version: 1.2
+  role_name: shorewall
+  namespace: mrlesmithjr
 
   platforms:
     - name: Debian

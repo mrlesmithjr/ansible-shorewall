@@ -1,38 +1,40 @@
 ---
 name: Molecule Test
-on: push
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       max-parallel: 4
       matrix:
-        python-version: [3.6, 3.7]
+        molecule_distro:
+          - ubuntu2204
+        python-version: ["3.11"]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
         with:
-          path: ansible-shorewall
+          submodules: recursive
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
       - name: Install dependencies
         run: |
-          sudo apt install docker
-          python -m pip install --upgrade pip pip-tools
-          pip-sync requirements.txt requirements-dev.txt
-          pip3 install -r requirements.txt
-          ansible --version
-          molecule --version
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt -r requirements-dev.txt
       - name: Test with molecule
         run: |
-          # molecule test --scenario-name centos7
-          # molecule test --scenario-name centos8
-          # molecule test --scenario-name debian8
-          molecule test --scenario-name debian9
-          molecule test --scenario-name debian10
-          # molecule test --scenario-name fedora
-          molecule test --scenario-name ubuntu1604
-          molecule test --scenario-name ubuntu1804
-          molecule test --scenario-name ubuntu2004
+          molecule test --scenario-name ${{ matrix.molecule_distro }}

@@ -1,4 +1,9 @@
 ---
+- name: debian | Updating APT Cache
+  apt:
+    update_cache: true
+  become: true
+
 - name: debian | Installing Shorewall
   apt:
     name: shorewall
